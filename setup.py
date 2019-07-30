@@ -8,24 +8,29 @@ def _get_requirements(filename):
     with open(requirements_path) as f:
         return f.readlines()
 
-NAME: str = 'simple_package'
-VERSION: str = '0.1.0'
-DESCRIPTION: str = 'A simple python package.'
 
-REQUIRES: list = _get_requirements('requirements.txt')
-REQUIRES_DEV: list = _get_requirements('requirements-dev.txt')
+NAME: str = "simple_package"
+VERSION: str = "0.1.0"
+DESCRIPTION: str = "A simple python package."
+
+REQUIRES: list = _get_requirements("requirements.txt")
+REQUIRES_DEV: list = _get_requirements("requirements-dev.txt")
 
 
 setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-
     zip_safe=False,
-
     install_requires=REQUIRES,
-
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    extras_require={"dev": REQUIRES_DEV}
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    extras_require={"dev": REQUIRES_DEV},
+    entry_points={
+        "console_scripts": [
+            "now=simple_package.dates:now",
+            "hour+1=simple_package.dates:plus_hour",
+            "hour-1=simple_package.dates:minus_hour",
+        ]
+    },
 )
