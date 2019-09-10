@@ -9,8 +9,14 @@ def _get_requirements(filename):
         return f.readlines()
 
 
+def read(file_path: str):
+    """Simply return the content of a file."""
+    with open(file_path) as f:
+        return f.read()
+
+
 NAME: str = "simple_package"
-VERSION: str = "0.1.0"
+VERSION: str = "0.1.1"
 DESCRIPTION: str = "A simple python package."
 
 REQUIRES: list = _get_requirements("requirements.txt")
@@ -21,6 +27,8 @@ setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
+    long_description=read(os.path.join(os.path.dirname(__file__), 'README.md')),
+    long_description_content_type='text/markdown',
     zip_safe=False,
     install_requires=REQUIRES,
     packages=find_packages("src"),
